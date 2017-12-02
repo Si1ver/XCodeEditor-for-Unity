@@ -1,5 +1,6 @@
 namespace UnityEditor.XCodeEditor
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
@@ -8,7 +9,6 @@ namespace UnityEditor.XCodeEditor
 
     public partial class XCProject : System.IDisposable
     {
-//      private string _filePath;
         private PBXDictionary _datastore;
         public PBXDictionary _objects;
         private PBXDictionary _configurations;
@@ -47,31 +47,11 @@ namespace UnityEditor.XCodeEditor
         {
         }
 
-        public XCProject( string filePath ) : this()
+        public XCProject(string filePath)
         {
-            if( !System.IO.Directory.Exists( filePath ) ) {
-                Debug.LogWarning( "Path does not exists." );
-                return;
-            }
+            DiscoverXcodeProject(filePath);
 
-            if( filePath.EndsWith( ".xcodeproj" ) ) {
-                Debug.Log( "Opening project " + filePath );
-                this.projectRootPath = Path.GetDirectoryName( filePath );
-                this.filePath = filePath;
-            } else {
-                Debug.Log( "Looking for xcodeproj files in " + filePath );
-                string[] projects = System.IO.Directory.GetDirectories( filePath, "*.xcodeproj" );
-                if( projects.Length == 0 ) {
-                    Debug.LogWarning( "Error: missing xcodeproj file" );
-                    return;
-                }
-
-                this.projectRootPath = filePath;
-                this.filePath = projects[ 0 ];
-            }
-
-            // Convert to absolute
-            this.projectRootPath = Path.GetFullPath(this.projectRootPath);
+            Debug.LogFormat("Opening project \"{0}\".", this.filePath);
 
             projectFileInfo = new FileInfo( Path.Combine( this.filePath, "project.pbxproj" ) );
             StreamReader sr = projectFileInfo.OpenText();
@@ -81,7 +61,7 @@ namespace UnityEditor.XCodeEditor
             PBXParser parser = new PBXParser();
             _datastore = parser.Decode( contents );
             if( _datastore == null ) {
-                throw new System.Exception( "Project file not found at file path " + filePath );
+                throw new System.Exception( "Project file not found at file path " + this.filePath);
             }
 
             if( !_datastore.ContainsKey( "objects" ) ) {
@@ -886,6 +866,59 @@ namespace UnityEditor.XCodeEditor
 
         public void Dispose()
         {
+        }
+
+        private void DiscoverXcodeProject(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new ArgumentException(
+                    "Path to project can not be empty or null.", "filePath");
+            }
+
+            // Note: this will throw exception if filePath is null or empty.
+            string fullFilePath = Path.GetFullPath(filePath);
+
+            // Ensure that there is no trailing slash in directory name.
+            char lastCharacter = fullFilePath[fullFilePath.Length - 1];
+            if (lastCharacter == '\\' || lastCharacter == '/')
+            {
+                fullFilePath = fullFilePath.Substring(0, fullFilePath.Length - 1);
+            }
+
+            if (!Directory.Exists(fullFilePath))
+            {
+                throw new ArgumentException(
+                    string.Format("Path \"{0}\" does not exists.", fullFilePath), "filePath");
+            }
+
+            if (fullFilePath.EndsWith(".xcodeproj"))
+            {
+                this.projectRootPath = Path.GetDirectoryName(fullFilePath);
+                this.filePath = fullFilePath;
+            }
+            else
+            {
+                Debug.LogFormat("Looking for xcodeproj files in \"{0}\".", fullFilePath);
+
+                string[] projects = Directory.GetDirectories(fullFilePath, "*.xcodeproj");
+                if (projects.Length == 0)
+                {
+                    string errorText = string.Format(
+                        "Error: Xcode project not found in directory \"{0}\".", fullFilePath);
+
+                    throw new ArgumentException(errorText, "filePath");
+                }
+                else if (projects.Length > 1)
+                {
+                    Debug.LogWarningFormat(
+                        "Warning: multiple Xcode projects found in directory \"{0}\".",
+                        fullFilePath);
+                }
+
+                this.projectRootPath = fullFilePath;
+                this.filePath = projects[0];
+            }
         }
     }
 }
