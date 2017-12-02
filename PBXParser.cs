@@ -61,8 +61,6 @@ namespace UnityEditor.XCodeEditor
             return ( success ? builder.ToString() : null );
         }
 
-        #region Move
-
         private char NextToken()
         {
             SkipWhitespaces();
@@ -138,9 +136,6 @@ namespace UnityEditor.XCodeEditor
             index = Math.Max( 0, index - step );
             return data[ index ];
         }
-
-        #endregion
-        #region Parse
 
         private object ParseValue()
         {
@@ -277,9 +272,6 @@ namespace UnityEditor.XCodeEditor
             return word;
         }
 
-        #endregion
-        #region Serialize
-
         private bool SerializeValue( object value, StringBuilder builder, bool readable = false )
         {
             if( value == null ) {
@@ -394,7 +386,5 @@ namespace UnityEditor.XCodeEditor
 
             return true;
         }
-
-        #endregion
     }
 }

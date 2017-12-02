@@ -125,8 +125,6 @@ public class XMiniJSON
         }
     }
 
-    #region Parsing
-
     protected static Hashtable parseObject(char[] json, ref int index)
     {
         Hashtable table = new Hashtable();
@@ -472,10 +470,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
         return XMiniJSON.TOKEN_NONE;
     }
 
-    #endregion
-
-    #region Serialization
-
     protected static bool serializeObjectOrArray(object objectOrArray, StringBuilder builder)
     {
         if (objectOrArray is Hashtable)
@@ -676,12 +670,7 @@ s += Char.ConvertFromUtf32((int)codePoint);
     {
         builder.Append(Convert.ToString(number)); // , CultureInfo.InvariantCulture));
     }
-
-    #endregion
-
 }
-
-#region Extension methods
 
 public static class XMiniJSONExtensions
 {
@@ -708,5 +697,3 @@ public static class XMiniJSONExtensions
         return XMiniJSON.jsonDecode(json) as Hashtable;
     }*/
 }
-
-#endregion

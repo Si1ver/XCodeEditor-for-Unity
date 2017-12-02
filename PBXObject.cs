@@ -6,11 +6,9 @@ namespace UnityEditor.XCodeEditor
     public class PBXObject
     {
         protected const string ISA_KEY = "isa";
-        //
+
         protected string _guid;
         protected PBXDictionary _data;
-
-        #region Properties
 
         public string guid {
             get {
@@ -29,9 +27,6 @@ namespace UnityEditor.XCodeEditor
                 return _data;
             }
         }
-
-        #endregion
-        #region Constructors
 
         public PBXObject()
         {
@@ -56,9 +51,6 @@ namespace UnityEditor.XCodeEditor
             }
         }
 
-        #endregion
-        #region Static methods
-
         public static bool IsGuid( string aString )
         {
             return System.Text.RegularExpressions.Regex.IsMatch( aString, @"^[A-F0-9]{24}$" );
@@ -68,9 +60,6 @@ namespace UnityEditor.XCodeEditor
         {
             return System.Guid.NewGuid().ToString("N").Substring( 8 ).ToUpper();
         }
-
-        #endregion
-        #region Data manipulation
 
         public void Add( string key, object obj )
         {
@@ -86,8 +75,6 @@ namespace UnityEditor.XCodeEditor
         {
             return _data.ContainsKey( key );
         }
-
-        #endregion
     }
 
     public class PBXNativeTarget : PBXObject

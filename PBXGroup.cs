@@ -7,8 +7,6 @@ namespace UnityEditor.XCodeEditor
         protected const string PATH_KEY = "path";
         protected const string SOURCETREE_KEY = "sourceTree";
 
-        #region Constructor
-
         public PBXGroup( string name, string path = null, string tree = "SOURCE_ROOT" ) : base()
         {
             this.Add( NAME_KEY, name );
@@ -26,9 +24,6 @@ namespace UnityEditor.XCodeEditor
         public PBXGroup( string guid, PBXDictionary dictionary ) : base( guid, dictionary )
         {
         }
-
-        #endregion
-        #region Properties
 
         public string name {
             get {
@@ -65,8 +60,6 @@ namespace UnityEditor.XCodeEditor
                 return (string)_data[SOURCETREE_KEY];
             }
         }
-
-        #endregion
 
         public string AddChild( PBXObject child )
         {

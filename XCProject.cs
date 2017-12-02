@@ -26,8 +26,6 @@ namespace UnityEditor.XCodeEditor
         private string sourcePathRoot;
         private bool modified = false;
 
-        #region Data
-
         // Objects
         private PBXDictionary<PBXBuildFile> _buildFiles;
         private PBXDictionary<PBXGroup> _groups;
@@ -44,9 +42,6 @@ namespace UnityEditor.XCodeEditor
         private PBXDictionary<XCConfigurationList> _configurationLists;
 
         private PBXProject _project;
-
-        #endregion
-        #region Constructor
 
         public XCProject()
         {
@@ -110,9 +105,6 @@ namespace UnityEditor.XCodeEditor
                 _rootGroup = null;
             }
         }
-
-        #endregion
-        #region Properties
 
         public PBXProject project {
             get {
@@ -235,9 +227,6 @@ namespace UnityEditor.XCodeEditor
                 return _copyBuildPhases;
             }
         }
-
-        #endregion
-        #region PBXMOD
 
         public bool AddOtherCFlags( string flag )
         {
@@ -530,8 +519,6 @@ namespace UnityEditor.XCodeEditor
             return modified;
         }
 
-        #endregion
-        #region Getters
         public PBXFileReference GetFile( string name )
         {
             if( string.IsNullOrEmpty( name ) ) {
@@ -574,10 +561,6 @@ namespace UnityEditor.XCodeEditor
             return result;
         }
 
-        #endregion
-//      #region Files
-//
-//
 //      /// <summary>
 //      /// Returns all file resources in the project, as an array of `XCSourceFile` objects.
 //      /// </summary>
@@ -659,8 +642,6 @@ namespace UnityEditor.XCodeEditor
 //          return null;
 //      }
 //
-//      #endregion
-//      #region Groups
 //      /**
 //      * Lists the groups in an xcode project, returning an array of `PBXGroup` objects.
 //      */
@@ -720,9 +701,6 @@ namespace UnityEditor.XCodeEditor
 //          return null;
 //      }
 //
-//      #endregion
-//      #region Target
-//
 //      /**
 //      * Lists the targets in an xcode project, returning an array of `XCTarget` objects.
 //      */
@@ -739,9 +717,6 @@ namespace UnityEditor.XCodeEditor
 //      {
 //          return null;
 //      }
-//
-//      #endregion
-//      #region Configurations
 //
 //      /**
 //      * Returns the target with the specified name, or nil.
@@ -762,9 +737,6 @@ namespace UnityEditor.XCodeEditor
 //              return null;
 //          }
 //      }
-//
-//      #endregion
-        #region Mods
 
         public void ApplyMod( string pbxmod )
         {
@@ -847,9 +819,6 @@ namespace UnityEditor.XCodeEditor
             this.Consolidate();
         }
 
-        #endregion
-        #region Savings
-
         public void Consolidate()
         {
             PBXDictionary consolidated = new PBXDictionary();
@@ -914,8 +883,6 @@ namespace UnityEditor.XCodeEditor
                 return null;
             }
         }
-
-        #endregion
 
         public void Dispose()
         {
