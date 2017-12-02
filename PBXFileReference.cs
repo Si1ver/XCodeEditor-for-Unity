@@ -12,7 +12,7 @@ namespace UnityEditor.XCodeEditor
 		protected const string EXPLICIT_FILE_TYPE_KEY = "explicitFileType";
 		protected const string LASTKNOWN_FILE_TYPE_KEY = "lastKnownFileType";
 		protected const string ENCODING_KEY = "fileEncoding";
-		
+
 		public string buildPhase;
 		public readonly Dictionary<TreeEnum, string> trees = new Dictionary<TreeEnum, string> {
 			{ TreeEnum.ABSOLUTE, "<absolute>" },
@@ -22,7 +22,7 @@ namespace UnityEditor.XCodeEditor
         	{ TreeEnum.SDKROOT, "SDKROOT" },
         	{ TreeEnum.SOURCE_ROOT, "SOURCE_ROOT" }
 		};
-		
+
 		public static readonly Dictionary<string, string> typeNames = new Dictionary<string, string> {
 			{ ".a", "archive.ar" },
 			{ ".app", "wrapper.application" },
@@ -46,7 +46,7 @@ namespace UnityEditor.XCodeEditor
 			{ ".bundle", "wrapper.plug-in" },
 			{ ".dylib", "compiled.mach-o.dylib" }
    		 };
-		
+
 		public static readonly Dictionary<string, string> typePhases = new Dictionary<string, string> {
 			{ ".a", "PBXFrameworksBuildPhase" },
 			{ ".app", null },
@@ -70,12 +70,12 @@ namespace UnityEditor.XCodeEditor
 			{ ".bundle", "PBXResourcesBuildPhase" },
 			{ ".dylib", "PBXFrameworksBuildPhase" }
     	};
-		
+
 		public PBXFileReference( string guid, PBXDictionary dictionary ) : base( guid, dictionary )
 		{
-			
+
 		}
-		
+
 		public PBXFileReference( string filePath, TreeEnum tree = TreeEnum.SOURCE_ROOT ) : base()
 		{
 			this.Add( PATH_KEY, filePath );
@@ -83,7 +83,7 @@ namespace UnityEditor.XCodeEditor
 			this.Add( SOURCETREE_KEY, (string)( System.IO.Path.IsPathRooted( filePath ) ? trees[TreeEnum.ABSOLUTE] : trees[tree] ) );
 			this.GuessFileType();
 		}
-		
+
 		public string name {
 			get {
 				if( !ContainsKey( NAME_KEY ) ) {
@@ -92,7 +92,7 @@ namespace UnityEditor.XCodeEditor
 				return (string)_data[NAME_KEY];
 			}
 		}
-		
+
 		private void GuessFileType()
 		{
 			this.Remove( EXPLICIT_FILE_TYPE_KEY );
@@ -102,19 +102,19 @@ namespace UnityEditor.XCodeEditor
 				Debug.LogWarning( "Unknown file extension: " + extension + "\nPlease add extension and Xcode type to PBXFileReference.types" );
 				return;
 			}
-			
+
 			this.Add( LASTKNOWN_FILE_TYPE_KEY, PBXFileReference.typeNames[ extension ] );
 			this.buildPhase = PBXFileReference.typePhases[ extension ];
 		}
-		
+
 		private void SetFileType( string fileType )
 		{
 			this.Remove( EXPLICIT_FILE_TYPE_KEY );
 			this.Remove( LASTKNOWN_FILE_TYPE_KEY );
-			
+
 			this.Add( EXPLICIT_FILE_TYPE_KEY, fileType );
 		}
-		
+
 //	class PBXFileReference(PBXType):
 //    def __init__(self, d=None):
 //        PBXType.__init__(self, d)
@@ -190,7 +190,7 @@ namespace UnityEditor.XCodeEditor
 //
 //        return fr
 	}
-	
+
 	public enum TreeEnum {
 		ABSOLUTE,
         GROUP,

@@ -4,16 +4,16 @@ using System.Text;
 using System.Collections.Generic;
 
 
-/* Based on the JSON parser from 
+/* Based on the JSON parser from
  * http://techblog.procurios.nl/k/618/news/view/14605/14863/How-do-I-write-my-own-parser-for-JSON.html
- * 
+ *
  * I simplified it so that it doesn't throw exceptions
  * and can be used in Unity iPhone with maximum code stripping.
  */
 /// <summary>
 /// This class encodes and decodes JSON strings.
 /// Spec. details, see http://www.json.org/
-/// 
+///
 /// JSON uses Arrays and Objects. These correspond here to the datatypes ArrayList and Hashtable.
 /// All numbers are parsed to doubles.
 /// </summary>
@@ -106,7 +106,7 @@ public class XMiniJSON
 
 
 	/// <summary>
-	/// If a decoding error occurred, this function returns a piece of the JSON string 
+	/// If a decoding error occurred, this function returns a piece of the JSON string
 	/// at which the error took place. To ease debugging.
 	/// </summary>
 	/// <returns></returns>

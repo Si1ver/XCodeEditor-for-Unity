@@ -8,8 +8,8 @@ namespace UnityEditor.XCodeEditor
 
 		public void Dispose()
 		{
-			
+
 		}
-		
+
 	}
 }

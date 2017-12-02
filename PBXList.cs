@@ -8,15 +8,15 @@ namespace UnityEditor.XCodeEditor
 	{
 		public PBXList()
 		{
-			
+
 		}
-		
+
 		public PBXList( object firstValue )
 		{
 			this.Add( firstValue );
 		}
 	}
-	
+
 //	public class PBXList<T> : ArrayList
 //	{
 //		public int Add( T value )

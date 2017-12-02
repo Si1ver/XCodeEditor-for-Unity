@@ -16,37 +16,37 @@ namespace UnityEditor.XCodeEditor
 
 		public XCBuildConfiguration( string guid, PBXDictionary dictionary ) : base( guid, dictionary )
 		{
-			
+
 		}
-		
+
 		public PBXDictionary buildSettings {
 			get {
 				if( ContainsKey( BUILDSETTINGS_KEY ) )
 					return (PBXDictionary)_data[BUILDSETTINGS_KEY];
-			
+
 				return null;
 			}
 		}
-		
+
 		protected bool AddSearchPaths( string path, string key, bool recursive = true )
 		{
 			PBXList paths = new PBXList();
 			paths.Add( path );
 			return AddSearchPaths( paths, key, recursive );
 		}
-		
+
 		protected bool AddSearchPaths( PBXList paths, string key, bool recursive = true )
-		{	
+		{
 			bool modified = false;
-			
+
 			if( !ContainsKey( BUILDSETTINGS_KEY ) )
 				this.Add( BUILDSETTINGS_KEY, new PBXDictionary() );
-			
+
 			foreach( string path in paths ) {
 				string currentPath = path;
 				if( recursive && !path.EndsWith( "/**" ) )
 					currentPath += "/**";
-				
+
 //				Debug.Log( "adding: " + currentPath );
 				if( !((PBXDictionary)_data[BUILDSETTINGS_KEY]).ContainsKey( key ) ) {
 					((PBXDictionary)_data[BUILDSETTINGS_KEY]).Add( key, new PBXList() );
@@ -56,23 +56,23 @@ namespace UnityEditor.XCodeEditor
 					list.Add( ((PBXDictionary)_data[BUILDSETTINGS_KEY])[key] );
 					((PBXDictionary)_data[BUILDSETTINGS_KEY])[key] = list;
 				}
-				
+
 				currentPath = "\\\"" + currentPath + "\\\"";
-				
+
 				if( !((PBXList)((PBXDictionary)_data[BUILDSETTINGS_KEY])[key]).Contains( currentPath ) ) {
 					((PBXList)((PBXDictionary)_data[BUILDSETTINGS_KEY])[key]).Add( currentPath );
 					modified = true;
 				}
 			}
-		
+
 			return modified;
 		}
-		
+
 		public bool AddHeaderSearchPaths( PBXList paths, bool recursive = true )
 		{
 			return this.AddSearchPaths( paths, HEADER_SEARCH_PATHS_KEY, recursive );
 		}
-		
+
 		public bool AddLibrarySearchPaths( PBXList paths, bool recursive = true )
 		{
 			return this.AddSearchPaths( paths, LIBRARY_SEARCH_PATHS_KEY, recursive );
@@ -82,7 +82,7 @@ namespace UnityEditor.XCodeEditor
 		{
 			return this.AddSearchPaths(paths, FRAMEWORK_SEARCH_PATHS_KEY, recursive);
 		}
-		
+
 		public bool AddOtherCFlags( string flag )
 		{
 			//Debug.Log( "INIZIO 1" );
@@ -90,18 +90,18 @@ namespace UnityEditor.XCodeEditor
 			flags.Add( flag );
 			return AddOtherCFlags( flags );
 		}
-		
+
 		public bool AddOtherCFlags( PBXList flags )
 		{
 			//Debug.Log( "INIZIO 2" );
-			
+
 			bool modified = false;
-			
+
 			if( !ContainsKey( BUILDSETTINGS_KEY ) )
 				this.Add( BUILDSETTINGS_KEY, new PBXDictionary() );
-			
+
 			foreach( string flag in flags ) {
-				
+
 				if( !((PBXDictionary)_data[BUILDSETTINGS_KEY]).ContainsKey( OTHER_C_FLAGS_KEY ) ) {
 					((PBXDictionary)_data[BUILDSETTINGS_KEY]).Add( OTHER_C_FLAGS_KEY, new PBXList() );
 				}
@@ -110,13 +110,13 @@ namespace UnityEditor.XCodeEditor
 					((PBXDictionary)_data[BUILDSETTINGS_KEY])[ OTHER_C_FLAGS_KEY ] = new PBXList();
 					((PBXList)((PBXDictionary)_data[BUILDSETTINGS_KEY])[OTHER_C_FLAGS_KEY]).Add( tempString );
 				}
-				
+
 				if( !((PBXList)((PBXDictionary)_data[BUILDSETTINGS_KEY])[OTHER_C_FLAGS_KEY]).Contains( flag ) ) {
 					((PBXList)((PBXDictionary)_data[BUILDSETTINGS_KEY])[OTHER_C_FLAGS_KEY]).Add( flag );
 					modified = true;
 				}
 			}
-			
+
 			return modified;
 		}
 
@@ -131,14 +131,14 @@ namespace UnityEditor.XCodeEditor
 		public bool AddOtherLDFlags( PBXList flags )
 		{
 			//Debug.Log( "INIZIO B" );
-			
+
 			bool modified = false;
-			
+
 			if( !ContainsKey( BUILDSETTINGS_KEY ) )
 				this.Add( BUILDSETTINGS_KEY, new PBXDictionary() );
-			
+
 			foreach( string flag in flags ) {
-				
+
 				if( !((PBXDictionary)_data[BUILDSETTINGS_KEY]).ContainsKey( OTHER_LD_FLAGS_KEY ) ) {
 					((PBXDictionary)_data[BUILDSETTINGS_KEY]).Add( OTHER_LD_FLAGS_KEY, new PBXList() );
 				}
@@ -147,13 +147,13 @@ namespace UnityEditor.XCodeEditor
 					((PBXDictionary)_data[BUILDSETTINGS_KEY])[ OTHER_LD_FLAGS_KEY ] = new PBXList();
 					((PBXList)((PBXDictionary)_data[BUILDSETTINGS_KEY])[OTHER_LD_FLAGS_KEY]).Add( tempString );
 				}
-				
+
 				if( !((PBXList)((PBXDictionary)_data[BUILDSETTINGS_KEY])[OTHER_LD_FLAGS_KEY]).Contains( flag ) ) {
 					((PBXList)((PBXDictionary)_data[BUILDSETTINGS_KEY])[OTHER_LD_FLAGS_KEY]).Add( flag );
 					modified = true;
 				}
 			}
-			
+
 			return modified;
 		}
 
@@ -174,7 +174,7 @@ namespace UnityEditor.XCodeEditor
 			((PBXDictionary)_data [BUILDSETTINGS_KEY])[GCC_ENABLE_OBJC_EXCEPTIONS_KEY] = value;
 			return true;
 		}
-		
+
 //	class XCBuildConfiguration(PBXType):
 //    def add_search_paths(self, paths, base, key, recursive=True):
 //        modified = False

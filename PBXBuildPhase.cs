@@ -7,24 +7,24 @@ namespace UnityEditor.XCodeEditor
 	public class PBXBuildPhase : PBXObject
 	{
 		protected const string FILES_KEY = "files";
-		
+
 		public PBXBuildPhase() :base()
 		{
 //			Debug.Log( "base" );
 		}
-		
+
 		public PBXBuildPhase( string guid, PBXDictionary dictionary ) : base ( guid, dictionary )
 		{
 //			Debug.Log( "constructor " + GetType().Name );
 		}
-		
+
 		public bool AddBuildFile( PBXBuildFile file )
 		{
 //			if( ((string)file[ ISA_KEY ]).CompareTo( "PBXBuildFile" ) != 0 )
 //				return false;
 //			Debug.Log( "--> buildphase " + (string)_data[ ISA_KEY ] );
-			
-			
+
+
 			if( !ContainsKey( FILES_KEY ) ){
 //				Debug.Log( "key not present" );
 				this.Add( FILES_KEY, new PBXList() );
@@ -38,33 +38,33 @@ namespace UnityEditor.XCodeEditor
 //			else {
 //				Debug.Log( "MANCA" );
 //			}
-			
+
 			return true;
 		}
-		
+
 		public void RemoveBuildFile( string id )
 		{
 			if( !ContainsKey( FILES_KEY ) ) {
 				this.Add( FILES_KEY, new PBXList() );
 				return;
 			}
-			
+
 			((PBXList)_data[ FILES_KEY ]).Remove( id );
 		}
-		
+
 		public bool HasBuildFile( string id )
 		{
 			if( !ContainsKey( FILES_KEY ) ) {
 				this.Add( FILES_KEY, new PBXList() );
 				return false;
 			}
-			
+
 			if( !IsGuid( id ) )
 				return false;
-			
+
 			return ((PBXList)_data[ FILES_KEY ]).Contains( id );
 		}
-		
+
 //	class PBXBuildPhase(PBXObject):
 //    def add_build_file(self, bf):
 //        if bf.get('isa') != 'PBXBuildFile':
@@ -94,7 +94,7 @@ namespace UnityEditor.XCodeEditor
 //
 //        return id in self['files']
 	}
-	
+
 	public class PBXFrameworksBuildPhase : PBXBuildPhase
 	{
 		public PBXFrameworksBuildPhase( string guid, PBXDictionary dictionary ) : base ( guid, dictionary )

@@ -36,7 +36,7 @@ namespace UnityEditor.XCodeEditor
 		private int index;
 //		public bool success;
 //		private int indent;
-	
+
 		public PBXDictionary Decode( string data )
 		{
 //			success = true;
@@ -48,7 +48,7 @@ namespace UnityEditor.XCodeEditor
 			data = data.Substring( 13 );
 			this.data = data.ToCharArray();
 			index = 0;
-			
+
 			return (PBXDictionary)ParseValue();
 		}
 
@@ -69,7 +69,7 @@ namespace UnityEditor.XCodeEditor
 			SkipWhitespaces();
 			return StepForeward();
 		}
-		
+
 		private string Peek( int step = 1 )
 		{
 			string sneak = string.Empty;
@@ -121,13 +121,13 @@ namespace UnityEditor.XCodeEditor
 			}
 			return true;
 		}
-		
+
 		private char StepForeward( int step = 1 )
 		{
 			index = Math.Min( data.Length, index + step );
 			return data[ index ];
 		}
-		
+
 		private char StepBackward( int step = 1 )
 		{
 			index = Math.Max( 0, index - step );
@@ -154,7 +154,7 @@ namespace UnityEditor.XCodeEditor
 					return ParseEntity();
 			}
 		}
-		
+
 //		private T Convert<T>( PBXDictionary dictionary )
 //		{
 //			if( dictionary.ContainsKey( "isa" ) ){
@@ -169,10 +169,10 @@ namespace UnityEditor.XCodeEditor
 //					Debug.Log( "Warning: unknown PBX type: " + targetType.Name );
 //					return default(T);
 //				}
-//				
+//
 //			}
 //			return default(T);
-//			
+//
 //		}
 
 		private PBXDictionary ParseDictionary()
@@ -258,7 +258,7 @@ namespace UnityEditor.XCodeEditor
 		private object ParseEntity()
 		{
 			string word = string.Empty;
-			
+
 			while( !Regex.IsMatch( Peek(), @"[;,\s=]" ) ) {
 				word += StepForeward();
 			}
@@ -266,7 +266,7 @@ namespace UnityEditor.XCodeEditor
 			if( word.Length != 24 && Regex.IsMatch( word, @"^\d+$" ) ) {
 				return Int32.Parse( word );
 			}
-			
+
 			return word;
 		}
 
@@ -318,7 +318,7 @@ namespace UnityEditor.XCodeEditor
 				Debug.LogWarning( "Error: unknown object of type " + value.GetType().Name );
 				return false;
 			}
-	
+
 			return true;
 		}
 
@@ -344,7 +344,7 @@ namespace UnityEditor.XCodeEditor
 			for( int i = 0; i < anArray.Count; i++ )
 			{
 				object value = anArray[i];
-	
+
 				if( !SerializeValue( value, builder ) )
 				{
 					return false;
@@ -352,7 +352,7 @@ namespace UnityEditor.XCodeEditor
 
 				builder.Append( ARRAY_ITEM_DELIMITER_TOKEN );
 			}
-	
+
 			builder.Append( ARRAY_END_TOKEN );
 			return true;
 		}
