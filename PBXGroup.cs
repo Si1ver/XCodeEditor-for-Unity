@@ -29,7 +29,6 @@ namespace UnityEditor.XCodeEditor
 
         public PBXGroup( string guid, PBXDictionary dictionary ) : base( guid, dictionary )
         {
-
         }
 
         #endregion
@@ -40,6 +39,7 @@ namespace UnityEditor.XCodeEditor
                 if( !ContainsKey( NAME_KEY ) ) {
                     return null;
                 }
+
                 return (string)_data[NAME_KEY];
             }
         }
@@ -49,6 +49,7 @@ namespace UnityEditor.XCodeEditor
                 if( !ContainsKey( CHILDREN_KEY ) ) {
                     this.Add( CHILDREN_KEY, new PBXList() );
                 }
+
                 return (PBXList)_data[CHILDREN_KEY];
             }
         }
@@ -58,6 +59,7 @@ namespace UnityEditor.XCodeEditor
                 if( !ContainsKey( PATH_KEY ) ) {
                     return null;
                 }
+
                 return (string)_data[PATH_KEY];
             }
         }
@@ -69,7 +71,6 @@ namespace UnityEditor.XCodeEditor
         }
 
         #endregion
-
 
         public string AddChild( PBXObject child )
         {
@@ -106,6 +107,5 @@ namespace UnityEditor.XCodeEditor
         {
             return (string)_data[ NAME_KEY ];
         }
-
     }
 }

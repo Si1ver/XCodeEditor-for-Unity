@@ -19,6 +19,7 @@ namespace UnityEditor.XCodeEditor
         private ArrayList _libs;
 
         public string name { get; private set; }
+
         public string path { get; private set; }
 
         public string group {
@@ -41,6 +42,7 @@ namespace UnityEditor.XCodeEditor
                         _libs.Add( new XCModFile( fileRef ) );
                     }
                 }
+
                 return _libs;
             }
         }
@@ -104,7 +106,6 @@ namespace UnityEditor.XCodeEditor
 //          excludes = (ArrayList)_datastore["excludes"];
         }
 
-
 //  "group": "GameCenter",
 //  "patches": [],
 //  "libs": [],
@@ -117,12 +118,12 @@ namespace UnityEditor.XCodeEditor
 //              "Editor/iOS/GameCenter/GameCenterManager.m"],
 //  "folders": [],
 //  "excludes": ["^.*\\.meta$", "^.*\\.mdown^", "^.*\\.pdf$"]
-
     }
 
     public class XCModFile
     {
         public string filePath { get; private set; }
+
         public bool isWeak { get; private set; }
 
         public XCModFile( string inputString )

@@ -24,11 +24,11 @@ namespace UnityEditor.XCodeEditor
 //              return false;
 //          Debug.Log( "--> buildphase " + (string)_data[ ISA_KEY ] );
 
-
             if( !ContainsKey( FILES_KEY ) ){
 //              Debug.Log( "key not present" );
                 this.Add( FILES_KEY, new PBXList() );
             }
+
 //          Debug.Log( "key: " + _data[ FILES_KEY ] );
 //          Debug.Log( "Adding: " + file.guid );
             ((PBXList)_data[ FILES_KEY ]).Add( file.guid );
@@ -64,7 +64,6 @@ namespace UnityEditor.XCodeEditor
 
             return ((PBXList)_data[ FILES_KEY ]).Contains( id );
         }
-
     }
 
     public class PBXFrameworksBuildPhase : PBXBuildPhase

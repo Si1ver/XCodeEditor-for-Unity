@@ -3,13 +3,13 @@ using System.Collections;
 using System.Text;
 using System.Collections.Generic;
 
-
 /* Based on the JSON parser from
  * http://techblog.procurios.nl/k/618/news/view/14605/14863/How-do-I-write-my-own-parser-for-JSON.html
  *
  * I simplified it so that it doesn't throw exceptions
  * and can be used in Unity iPhone with maximum code stripping.
  */
+
 /// <summary>
 /// This class encodes and decodes JSON strings.
 /// Spec. details, see http://www.json.org/
@@ -38,7 +38,6 @@ public class XMiniJSON
     /// </summary>
     protected static int lastErrorIndex = -1;
     protected static string lastDecode = "";
-
 
     /// <summary>
     /// Parses the string json into a value
@@ -70,7 +69,6 @@ public class XMiniJSON
         }
     }
 
-
     /// <summary>
     /// Converts a Hashtable / ArrayList / Dictionary(string,string) object into a JSON string
     /// </summary>
@@ -84,7 +82,6 @@ public class XMiniJSON
         return (success ? builder.ToString() : null);
     }
 
-
     /// <summary>
     /// On decoding, this function returns the position at which the parse failed (-1 = no error).
     /// </summary>
@@ -94,7 +91,6 @@ public class XMiniJSON
         return (XMiniJSON.lastErrorIndex == -1);
     }
 
-
     /// <summary>
     /// On decoding, this function returns the position at which the parse failed (-1 = no error).
     /// </summary>
@@ -103,7 +99,6 @@ public class XMiniJSON
     {
         return XMiniJSON.lastErrorIndex;
     }
-
 
     /// <summary>
     /// If a decoding error occurred, this function returns a piece of the JSON string
@@ -129,7 +124,6 @@ public class XMiniJSON
             return XMiniJSON.lastDecode.Substring(startIndex, endIndex - startIndex + 1);
         }
     }
-
 
     #region Parsing
 
@@ -185,7 +179,6 @@ public class XMiniJSON
         return table;
     }
 
-
     protected static ArrayList parseArray(char[] json, ref int index)
     {
         ArrayList array = new ArrayList();
@@ -224,7 +217,6 @@ public class XMiniJSON
         return array;
     }
 
-
     protected static object parseValue(char[] json, ref int index, ref bool success)
     {
         switch (lookAhead(json, index))
@@ -253,7 +245,6 @@ public class XMiniJSON
         success = false;
         return null;
     }
-
 
     protected static string parseString(char[] json, ref int index)
     {
@@ -339,14 +330,12 @@ s += Char.ConvertFromUtf32((int)codePoint);
                     {
                         break;
                     }
-
                 }
             }
             else
             {
                 s += c;
             }
-
         }
 
         if (!complete)
@@ -354,7 +343,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
 
         return s;
     }
-
 
     protected static double parseNumber(char[] json, ref int index)
     {
@@ -369,7 +357,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
         return Double.Parse(new string(numberCharArray)); // , CultureInfo.InvariantCulture);
     }
 
-
     protected static int getLastIndexOfNumber(char[] json, int index)
     {
         int lastIndex;
@@ -378,9 +365,9 @@ s += Char.ConvertFromUtf32((int)codePoint);
             {
                 break;
             }
+
         return lastIndex - 1;
     }
-
 
     protected static void eatWhitespace(char[] json, ref int index)
     {
@@ -391,13 +378,11 @@ s += Char.ConvertFromUtf32((int)codePoint);
             }
     }
 
-
     protected static int lookAhead(char[] json, int index)
     {
         int saveIndex = index;
         return nextToken(json, ref saveIndex);
     }
-
 
     protected static int nextToken(char[] json, ref int index)
     {
@@ -439,6 +424,7 @@ s += Char.ConvertFromUtf32((int)codePoint);
             case ':':
                 return XMiniJSON.TOKEN_COLON;
         }
+
         index--;
 
         int remainingLength = json.Length - index;
@@ -488,7 +474,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
 
     #endregion
 
-
     #region Serialization
 
     protected static bool serializeObjectOrArray(object objectOrArray, StringBuilder builder)
@@ -506,7 +491,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
             return false;
         }
     }
-
 
     protected static bool serializeObject(Hashtable anObject, StringBuilder builder)
     {
@@ -538,7 +522,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
         return true;
     }
 
-
     protected static bool serializeDictionary(Dictionary<string, string> dict, StringBuilder builder)
     {
         builder.Append("{");
@@ -559,7 +542,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
         builder.Append("}");
         return true;
     }
-
 
     protected static bool serializeArray(ArrayList anArray, StringBuilder builder)
     {
@@ -586,7 +568,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
         builder.Append("]");
         return true;
     }
-
 
     protected static bool serializeValue(object value, StringBuilder builder)
     {
@@ -641,7 +622,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
         return true;
     }
 
-
     protected static void serializeString(string aString, StringBuilder builder)
     {
         builder.Append("\"");
@@ -695,7 +675,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
         builder.Append("\"");
     }
 
-
     protected static void serializeNumber(double number, StringBuilder builder)
     {
         builder.Append(Convert.ToString(number)); // , CultureInfo.InvariantCulture));
@@ -704,8 +683,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
     #endregion
 
 }
-
-
 
 #region Extension methods
 

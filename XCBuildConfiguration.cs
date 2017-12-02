@@ -16,7 +16,6 @@ namespace UnityEditor.XCodeEditor
 
         public XCBuildConfiguration( string guid, PBXDictionary dictionary ) : base( guid, dictionary )
         {
-
         }
 
         public PBXDictionary buildSettings {
@@ -101,7 +100,6 @@ namespace UnityEditor.XCodeEditor
                 this.Add( BUILDSETTINGS_KEY, new PBXDictionary() );
 
             foreach( string flag in flags ) {
-
                 if( !((PBXDictionary)_data[BUILDSETTINGS_KEY]).ContainsKey( OTHER_C_FLAGS_KEY ) ) {
                     ((PBXDictionary)_data[BUILDSETTINGS_KEY]).Add( OTHER_C_FLAGS_KEY, new PBXList() );
                 }
@@ -138,7 +136,6 @@ namespace UnityEditor.XCodeEditor
                 this.Add( BUILDSETTINGS_KEY, new PBXDictionary() );
 
             foreach( string flag in flags ) {
-
                 if( !((PBXDictionary)_data[BUILDSETTINGS_KEY]).ContainsKey( OTHER_LD_FLAGS_KEY ) ) {
                     ((PBXDictionary)_data[BUILDSETTINGS_KEY]).Add( OTHER_LD_FLAGS_KEY, new PBXList() );
                 }
@@ -174,6 +171,5 @@ namespace UnityEditor.XCodeEditor
             ((PBXDictionary)_data [BUILDSETTINGS_KEY])[GCC_ENABLE_OBJC_EXCEPTIONS_KEY] = value;
             return true;
         }
-
     }
 }

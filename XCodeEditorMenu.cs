@@ -8,7 +8,6 @@ namespace UnityEditor.XCodeEditor
 {
     public class XCodeEditorMenu
     {
-
         //[MenuItem ("Build Tools/XCode Editor/DebugTest %t")]
         static void DebugTest()
         {
@@ -58,9 +57,7 @@ namespace UnityEditor.XCodeEditor
             //}
 
             //currentProject.Save();
-
         }
-
 
         //[MenuItem ("Build Tools/XCode Editor/DebugTest2 %y")]
         static void DebugTest2()
@@ -89,9 +86,6 @@ namespace UnityEditor.XCodeEditor
             //Debug.Log( MiniJSON.jsonEncode( test ) );
             //Debug.Log( test + " - " + test.Count );
             //Debug.Log( parser.Encode( test ) );
-
-
         }
-
     }
 }

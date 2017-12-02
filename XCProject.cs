@@ -9,7 +9,6 @@ namespace UnityEditor.XCodeEditor
 {
     public partial class XCProject : System.IDisposable
     {
-
 //      private string _filePath;
         private PBXDictionary _datastore;
         public PBXDictionary _objects;
@@ -20,9 +19,11 @@ namespace UnityEditor.XCodeEditor
         private string _rootObjectKey;
 
         public string projectRootPath { get; private set; }
+
         private FileInfo projectFileInfo;
 
         public string filePath { get; private set; }
+
         private string sourcePathRoot;
         private bool modified = false;
 
@@ -50,7 +51,6 @@ namespace UnityEditor.XCodeEditor
 
         public XCProject()
         {
-
         }
 
         public XCProject( string filePath ) : this()
@@ -110,7 +110,6 @@ namespace UnityEditor.XCodeEditor
                 _project = null;
                 _rootGroup = null;
             }
-
         }
 
         #endregion
@@ -133,6 +132,7 @@ namespace UnityEditor.XCodeEditor
                 if( _buildFiles == null ) {
                     _buildFiles = new PBXDictionary<PBXBuildFile>( _objects );
                 }
+
                 return _buildFiles;
             }
         }
@@ -142,6 +142,7 @@ namespace UnityEditor.XCodeEditor
                 if( _groups == null ) {
                     _groups = new PBXDictionary<PBXGroup>( _objects );
                 }
+
                 return _groups;
             }
         }
@@ -151,6 +152,7 @@ namespace UnityEditor.XCodeEditor
                 if( _fileReferences == null ) {
                     _fileReferences = new PBXDictionary<PBXFileReference>( _objects );
                 }
+
                 return _fileReferences;
             }
         }
@@ -160,6 +162,7 @@ namespace UnityEditor.XCodeEditor
                 if( _nativeTargets == null ) {
                     _nativeTargets = new PBXDictionary<PBXNativeTarget>( _objects );
                 }
+
                 return _nativeTargets;
             }
         }
@@ -169,6 +172,7 @@ namespace UnityEditor.XCodeEditor
                 if( _buildConfigurations == null ) {
                     _buildConfigurations = new PBXDictionary<XCBuildConfiguration>( _objects );
                 }
+
                 return _buildConfigurations;
             }
         }
@@ -178,6 +182,7 @@ namespace UnityEditor.XCodeEditor
                 if( _configurationLists == null ) {
                     _configurationLists = new PBXDictionary<XCConfigurationList>( _objects );
                 }
+
                 return _configurationLists;
             }
         }
@@ -187,6 +192,7 @@ namespace UnityEditor.XCodeEditor
                 if( _frameworkBuildPhases == null ) {
                     _frameworkBuildPhases = new PBXDictionary<PBXFrameworksBuildPhase>( _objects );
                 }
+
                 return _frameworkBuildPhases;
             }
         }
@@ -196,6 +202,7 @@ namespace UnityEditor.XCodeEditor
                 if( _resourcesBuildPhases == null ) {
                     _resourcesBuildPhases = new PBXDictionary<PBXResourcesBuildPhase>( _objects );
                 }
+
                 return _resourcesBuildPhases;
             }
         }
@@ -205,6 +212,7 @@ namespace UnityEditor.XCodeEditor
                 if( _shellScriptBuildPhases == null ) {
                     _shellScriptBuildPhases = new PBXDictionary<PBXShellScriptBuildPhase>( _objects );
                 }
+
                 return _shellScriptBuildPhases;
             }
         }
@@ -214,6 +222,7 @@ namespace UnityEditor.XCodeEditor
                 if( _sourcesBuildPhases == null ) {
                     _sourcesBuildPhases = new PBXDictionary<PBXSourcesBuildPhase>( _objects );
                 }
+
                 return _sourcesBuildPhases;
             }
         }
@@ -223,10 +232,10 @@ namespace UnityEditor.XCodeEditor
                 if( _copyBuildPhases == null ) {
                     _copyBuildPhases = new PBXDictionary<PBXCopyFilesBuildPhase>( _objects );
                 }
+
                 return _copyBuildPhases;
             }
         }
-
 
         #endregion
         #region PBXMOD
@@ -241,6 +250,7 @@ namespace UnityEditor.XCodeEditor
             foreach( KeyValuePair<string, XCBuildConfiguration> buildConfig in buildConfigurations ) {
                 buildConfig.Value.AddOtherCFlags( flags );
             }
+
             modified = true;
             return modified;
         }
@@ -255,6 +265,7 @@ namespace UnityEditor.XCodeEditor
             foreach( KeyValuePair<string, XCBuildConfiguration> buildConfig in buildConfigurations ) {
                 buildConfig.Value.AddOtherLDFlags( flags );
             }
+
             modified = true;
             return modified;
         }
@@ -264,6 +275,7 @@ namespace UnityEditor.XCodeEditor
             foreach( KeyValuePair<string, XCBuildConfiguration> buildConfig in buildConfigurations ) {
                 buildConfig.Value.GccEnableCppExceptions( value );
             }
+
             modified = true;
             return modified;
         }
@@ -273,6 +285,7 @@ namespace UnityEditor.XCodeEditor
             foreach( KeyValuePair<string, XCBuildConfiguration> buildConfig in buildConfigurations ) {
                 buildConfig.Value.GccEnableObjCExceptions( value );
             }
+
             modified = true;
             return modified;
         }
@@ -288,6 +301,7 @@ namespace UnityEditor.XCodeEditor
 //              Debug.Log( "ADDING HEADER PATH: " + paths + " to " + buildConfig.Key );
                 buildConfig.Value.AddHeaderSearchPaths( paths );
             }
+
             modified = true;
             return modified;
         }
@@ -302,6 +316,7 @@ namespace UnityEditor.XCodeEditor
             foreach( KeyValuePair<string, XCBuildConfiguration> buildConfig in buildConfigurations ) {
                 buildConfig.Value.AddLibrarySearchPaths( paths );
             }
+
             modified = true;
             return modified;
         }
@@ -317,6 +332,7 @@ namespace UnityEditor.XCodeEditor
             {
                 buildConfig.Value.AddFrameworkSearchPaths(paths);
             }
+
             modified = true;
             return modified;
         }
@@ -325,7 +341,6 @@ namespace UnityEditor.XCodeEditor
             //      "$(inherited)",
                 //  "\"$(SRCROOT)/../../../../../../../Documents/FacebookSDK\"",
                 //);
-
 
 //      public PBXList GetObjectOfType( string type )
 //      {
@@ -342,7 +357,6 @@ namespace UnityEditor.XCodeEditor
         {
             return _objects[guid];
         }
-
 
 //      public PBXDictionary<PBXBuildPhase> GetBuildPhase( string buildPhase )
 //      {
@@ -385,6 +399,7 @@ namespace UnityEditor.XCodeEditor
                 System.Uri rootURI = new System.Uri( ( projectRootPath + "/." ) );
                 filePath = rootURI.MakeRelativeUri( fileURI ).ToString();
             }
+
 //          else {
 //              tree = "<absolute>";
 //              Debug.Log( "3: " + filePath );
@@ -428,6 +443,7 @@ namespace UnityEditor.XCodeEditor
                             string frameworkPath = Path.Combine( "$(SRCROOT)", Path.GetDirectoryName( filePath ) );
                             this.AddFrameworkSearchPaths(new PBXList(frameworkPath));
                         }
+
                         break;
                     case "PBXResourcesBuildPhase":
                         foreach( KeyValuePair<string, PBXResourcesBuildPhase> currentObject in resourcesBuildPhases ) {
@@ -435,6 +451,7 @@ namespace UnityEditor.XCodeEditor
                             buildFiles.Add( buildFile );
                             currentObject.Value.AddBuildFile( buildFile );
                         }
+
                         break;
                     case "PBXShellScriptBuildPhase":
                         foreach( KeyValuePair<string, PBXShellScriptBuildPhase> currentObject in shellScriptBuildPhases ) {
@@ -442,6 +459,7 @@ namespace UnityEditor.XCodeEditor
                             buildFiles.Add( buildFile );
                             currentObject.Value.AddBuildFile( buildFile );
                         }
+
                         break;
                     case "PBXSourcesBuildPhase":
                         foreach( KeyValuePair<string, PBXSourcesBuildPhase> currentObject in sourcesBuildPhases ) {
@@ -449,6 +467,7 @@ namespace UnityEditor.XCodeEditor
                             buildFiles.Add( buildFile );
                             currentObject.Value.AddBuildFile( buildFile );
                         }
+
                         break;
                     case "PBXCopyFilesBuildPhase":
                         foreach( KeyValuePair<string, PBXCopyFilesBuildPhase> currentObject in copyBuildPhases ) {
@@ -456,6 +475,7 @@ namespace UnityEditor.XCodeEditor
                             buildFiles.Add( buildFile );
                             currentObject.Value.AddBuildFile( buildFile );
                         }
+
                         break;
                     case null:
                         Debug.LogWarning( "fase non supportata null" );
@@ -471,7 +491,6 @@ namespace UnityEditor.XCodeEditor
 //              Debug.Log( obj.Key + " - " + obj.Value.GetType().Name );
 //          }
             return results;
-
         }
 
         public bool AddFolder( string folderPath, PBXGroup parent = null, string[] exclude = null, bool recursive = true, bool createBuildFile = true )
@@ -514,11 +533,13 @@ namespace UnityEditor.XCodeEditor
                     AddFolder( directory, newGroup, exclude, recursive, createBuildFile );
                 }
             }
+
             // Adding files.
             foreach( string file in Directory.GetFiles( folderPath ) ) {
                 if( Regex.IsMatch( file, regexExclude ) ) {
                     continue;
                 }
+
                 //Debug.Log( "--> " + file + ", " + newGroup );
                 AddFile( file, newGroup, "SOURCE_ROOT", createBuildFile );
             }
@@ -544,7 +565,6 @@ namespace UnityEditor.XCodeEditor
             return null;
         }
 
-
         public PBXGroup GetGroup( string name, string path = null, PBXGroup parent = null )
         {
 //          Debug.Log( "GetGroup: " + name + ", " + path + ", " + parent );
@@ -555,7 +575,6 @@ namespace UnityEditor.XCodeEditor
                 parent = rootGroup;
 
             foreach( KeyValuePair<string, PBXGroup> current in groups ) {
-
 //              Debug.Log( "current: " + current.Value.guid + ", " + current.Value.name + ", " + current.Value.path + " - " + parent.HasChild( current.Key ) );
                 if( string.IsNullOrEmpty( current.Value.name ) ) {
                     if( current.Value.path.CompareTo( name ) == 0 && parent.HasChild( current.Key ) ) {
@@ -573,7 +592,6 @@ namespace UnityEditor.XCodeEditor
 
             modified = true;
             return result;
-
         }
 
         #endregion
@@ -798,7 +816,6 @@ namespace UnityEditor.XCodeEditor
             foreach( string filePath in mod.files ) {
                 string absoluteFilePath = System.IO.Path.Combine( mod.path, filePath );
 
-
                 if( filePath.EndsWith(".framework") )
                     this.AddFile( absoluteFilePath, frameworkGroup, "GROUP", true, false);
                 else
@@ -873,7 +890,6 @@ namespace UnityEditor.XCodeEditor
             consolidated = null;
         }
 
-
         public void Backup()
         {
             string backupPath = Path.Combine( this.filePath, "project.backup.pbxproj" );
@@ -922,12 +938,10 @@ namespace UnityEditor.XCodeEditor
             }
         }
 
-
         #endregion
 
         public void Dispose()
         {
-
         }
     }
 }

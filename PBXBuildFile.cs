@@ -14,10 +14,8 @@ namespace UnityEditor.XCodeEditor
 
         public PBXBuildFile( PBXFileReference fileRef, bool weak = false ) : base()
         {
-
             this.Add( FILE_REF_KEY, fileRef.guid );
             SetWeakLink( weak );
-
         }
 
         public PBXBuildFile( string guid, PBXDictionary dictionary ) : base ( guid, dictionary )
@@ -39,6 +37,7 @@ namespace UnityEditor.XCodeEditor
                     settings.Add( ATTRIBUTES_KEY, attributes );
                     _data[ SETTINGS_KEY ] = settings;
                 }
+
                 return true;
             }
 
@@ -90,6 +89,5 @@ namespace UnityEditor.XCodeEditor
             ((PBXDictionary)_data[ SETTINGS_KEY ])[ COMPILER_FLAGS_KEY ] = ( string.Join( " ", flags ) + " " + flag );
             return true;
         }
-
     }
 }

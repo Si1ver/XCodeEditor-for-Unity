@@ -73,7 +73,6 @@ namespace UnityEditor.XCodeEditor
 
         public PBXFileReference( string guid, PBXDictionary dictionary ) : base( guid, dictionary )
         {
-
         }
 
         public PBXFileReference( string filePath, TreeEnum tree = TreeEnum.SOURCE_ROOT ) : base()
@@ -89,6 +88,7 @@ namespace UnityEditor.XCodeEditor
                 if( !ContainsKey( NAME_KEY ) ) {
                     return null;
                 }
+
                 return (string)_data[NAME_KEY];
             }
         }
@@ -114,7 +114,6 @@ namespace UnityEditor.XCodeEditor
 
             this.Add( EXPLICIT_FILE_TYPE_KEY, fileType );
         }
-
     }
 
     public enum TreeEnum {

@@ -8,7 +8,6 @@ namespace UnityEditor.XCodeEditor
     {
         public PBXList()
         {
-
         }
 
         public PBXList( object firstValue )

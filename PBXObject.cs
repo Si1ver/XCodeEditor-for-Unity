@@ -31,7 +31,6 @@ namespace UnityEditor.XCodeEditor
             }
         }
 
-
         #endregion
         #region Constructors
 
@@ -72,7 +71,6 @@ namespace UnityEditor.XCodeEditor
         {
             return System.Guid.NewGuid().ToString("N").Substring( 8 ).ToUpper();
         }
-
 
         #endregion
         #region Data manipulation

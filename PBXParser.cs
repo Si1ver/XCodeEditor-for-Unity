@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-
 namespace UnityEditor.XCodeEditor
 {
     public class PBXParser
@@ -77,8 +76,10 @@ namespace UnityEditor.XCodeEditor
                 if( data.Length - 1 < index + i ) {
                     break;
                 }
+
                 sneak += data[ index + i ];
             }
+
             return sneak;
         }
 
@@ -107,18 +108,22 @@ namespace UnityEditor.XCodeEditor
                         while( Peek( 2 ).CompareTo( COMMENT_END_TOKEN ) != 0 ) {
                             s += StepForeward();
                         }
+
                         s += StepForeward( 2 );
                         break;
                     }
+
                 case COMMENT_LINE_TOKEN: {
                         while( !Regex.IsMatch( StepForeward().ToString(), @"\n" ) )
                             continue;
 
                         break;
                     }
+
                 default:
                     return false;
             }
+
             return true;
         }
 
@@ -212,6 +217,7 @@ namespace UnityEditor.XCodeEditor
                         break;
                 }
             }
+
             return dictionary;
         }
 
@@ -236,6 +242,7 @@ namespace UnityEditor.XCodeEditor
                         break;
                 }
             }
+
             return list;
         }
 
@@ -302,6 +309,7 @@ namespace UnityEditor.XCodeEditor
             else if( value.GetType().IsPrimitive ) {
                 builder.Append( Convert.ToString( value ) );
             }
+
 //          else if( value is Hashtable )
 //          {
 //              serializeObject( (Hashtable)value, builder );
