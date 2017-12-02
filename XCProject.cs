@@ -456,8 +456,6 @@ namespace UnityEditor.XCodeEditor
                 exclude = new string[] {};
             string regexExclude = string.Format( @"{0}", string.Join( "|", exclude ) );
 
-            PBXDictionary results = new PBXDictionary();
-
             if( parent == null )
                 parent = rootGroup;
 
