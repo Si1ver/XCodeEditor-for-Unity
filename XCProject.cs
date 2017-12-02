@@ -472,54 +472,6 @@ namespace UnityEditor.XCodeEditor
 //          }
             return results;
 
-//      def add_file(self, f_path, parent=None, tree='SOURCE_ROOT', create_build_files=True, weak=False):
-//        results = []
-//
-//        abs_path = ''
-//
-//        if os.path.isabs(f_path):
-//            abs_path = f_path
-//
-//            if not os.path.exists(f_path):
-//                return results
-//            elif tree == 'SOURCE_ROOT':
-//                f_path = os.path.relpath(f_path, self.source_root)
-//            else:
-//                tree = '<absolute>'
-//
-//        if not parent:
-//            parent = self.root_group
-//        elif not isinstance(parent, PBXGroup):
-//            # assume it's an id
-//            parent = self.objects.get(parent, self.root_group)
-//
-//        file_ref = PBXFileReference.Create(f_path, tree)
-//        parent.add_child(file_ref)
-//        results.append(file_ref)
-//        # create a build file for the file ref
-//        if file_ref.build_phase and create_build_files:
-//            phases = self.get_build_phases(file_ref.build_phase)
-//
-//            for phase in phases:
-//                build_file = PBXBuildFile.Create(file_ref, weak=weak)
-//
-//                phase.add_build_file(build_file)
-//                results.append(build_file)
-//
-//            if abs_path and tree == 'SOURCE_ROOT' and os.path.isfile(abs_path)\
-//                and file_ref.build_phase == 'PBXFrameworksBuildPhase':
-//
-//                library_path = os.path.join('$(SRCROOT)', os.path.split(f_path)[0])
-//
-//                self.add_library_search_paths([library_path], recursive=False)
-//
-//        for r in results:
-//            self.objects[r.id] = r
-//
-//        if results:
-//            self.modified = True
-//
-//        return results
         }
 
         public bool AddFolder( string folderPath, PBXGroup parent = null, string[] exclude = null, bool recursive = true, bool createBuildFile = true )
@@ -573,84 +525,6 @@ namespace UnityEditor.XCodeEditor
 
             modified = true;
             return modified;
-//      def add_folder(self, os_path, parent=None, excludes=None, recursive=True, create_build_files=True):
-//        if not os.path.isdir(os_path):
-//            return []
-//
-//        if not excludes:
-//            excludes = []
-//
-//        results = []
-//
-//        if not parent:
-//            parent = self.root_group
-//        elif not isinstance(parent, PBXGroup):
-//            # assume it's an id
-//            parent = self.objects.get(parent, self.root_group)
-//
-//        path_dict = {os.path.split(os_path)[0]:parent}
-//        special_list = []
-//
-//        for (grp_path, subdirs, files) in os.walk(os_path):
-//            parent_folder, folder_name = os.path.split(grp_path)
-//            parent = path_dict.get(parent_folder, parent)
-//
-//            if [sp for sp in special_list if parent_folder.startswith(sp)]:
-//                continue
-//
-//            if folder_name.startswith('.'):
-//                special_list.append(grp_path)
-//                continue
-//
-//            if os.path.splitext(grp_path)[1] in XcodeProject.special_folders:
-//                # if this file has a special extension (bundle or framework mainly) treat it as a file
-//                special_list.append(grp_path)
-//
-//                new_files = self.verify_files([folder_name], parent=parent)
-//
-//                if new_files:
-//                    results.extend(self.add_file(grp_path, parent, create_build_files=create_build_files))
-//
-//                continue
-//
-//            # create group
-//            grp = self.get_or_create_group(folder_name, path=self.get_relative_path(grp_path) , parent=parent)
-//            path_dict[grp_path] = grp
-//
-//            results.append(grp)
-//
-//            file_dict = {}
-//
-//            for f in files:
-//                if f[0] == '.' or [m for m in excludes if re.match(m,f)]:
-//                    continue
-//
-//                kwds = {
-//                    'create_build_files': create_build_files,
-//                    'parent': grp,
-//                    'name': f
-//                }
-//
-//                f_path = os.path.join(grp_path, f)
-//
-//                file_dict[f_path] = kwds
-//
-//            new_files = self.verify_files([n.get('name') for n in file_dict.values()], parent=grp)
-//
-//            add_files = [(k,v) for k,v in file_dict.items() if v.get('name') in new_files]
-//
-//            for path, kwds in add_files:
-//                kwds.pop('name', None)
-//
-//                self.add_file(path, **kwds)
-//
-//            if not recursive:
-//                break
-//
-//        for r in results:
-//            self.objects[r.id] = r
-//
-//        return results
         }
 
         #endregion
@@ -700,30 +574,6 @@ namespace UnityEditor.XCodeEditor
             modified = true;
             return result;
 
-//      def get_or_create_group(self, name, path=None, parent=None):
-//        if not name:
-//            return None
-//
-//        if not parent:
-//            parent = self.root_group
-//        elif not isinstance(parent, PBXGroup):
-//            # assume it's an id
-//            parent = self.objects.get(parent, self.root_group)
-//
-//        groups = self.get_groups_by_name(name)
-//
-//        for grp in groups:
-//            if parent.has_child(grp.id):
-//                return grp
-//
-//        grp = PBXGroup.Create(name, path)
-//        parent.add_child(grp)
-//
-//        self.objects[grp.id] = grp
-//
-//        self.modified = True
-//
-//        return grp
         }
 
         #endregion

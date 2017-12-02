@@ -65,34 +65,6 @@ namespace UnityEditor.XCodeEditor
             return ((PBXList)_data[ FILES_KEY ]).Contains( id );
         }
 
-//  class PBXBuildPhase(PBXObject):
-//    def add_build_file(self, bf):
-//        if bf.get('isa') != 'PBXBuildFile':
-//            return False
-//
-//        if not self.has_key('files'):
-//            self['files'] = PBXList()
-//
-//        self['files'].add(bf.id)
-//
-//        return True
-//
-//    def remove_build_file(self, id):
-//        if not self.has_key('files'):
-//            self['files'] = PBXList()
-//            return
-//
-//        self['files'].remove(id)
-//
-//    def has_build_file(self, id):
-//        if not self.has_key('files'):
-//            self['files'] = PBXList()
-//            return False
-//
-//        if not PBXObject.IsGuid(id):
-//            id = id.id
-//
-//        return id in self['files']
     }
 
     public class PBXFrameworksBuildPhase : PBXBuildPhase
