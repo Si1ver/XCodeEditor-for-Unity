@@ -3,13 +3,13 @@ using System.Collections;
 
 namespace UnityEditor.XCodeEditor
 {
-	public class XCFileOperationQueue : System.IDisposable
-	{
+    public class XCFileOperationQueue : System.IDisposable
+    {
 
-		public void Dispose()
-		{
+        public void Dispose()
+        {
 
-		}
+        }
 
-	}
+    }
 }

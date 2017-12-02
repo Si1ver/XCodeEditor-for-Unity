@@ -4,24 +4,24 @@ using System.Collections.Generic;
 
 namespace UnityEditor.XCodeEditor
 {
-	public class PBXList : ArrayList
-	{
-		public PBXList()
-		{
+    public class PBXList : ArrayList
+    {
+        public PBXList()
+        {
 
-		}
+        }
 
-		public PBXList( object firstValue )
-		{
-			this.Add( firstValue );
-		}
-	}
+        public PBXList( object firstValue )
+        {
+            this.Add( firstValue );
+        }
+    }
 
-//	public class PBXList<T> : ArrayList
-//	{
-//		public int Add( T value )
-//		{
-//			return (ArrayList)this.Add( value );
-//		}
-//	}
+//  public class PBXList<T> : ArrayList
+//  {
+//      public int Add( T value )
+//      {
+//          return (ArrayList)this.Add( value );
+//      }
+//  }
 }
