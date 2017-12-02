@@ -20,7 +20,6 @@ namespace UnityEditor.XCodeEditor
 
         public PBXBuildFile( string guid, PBXDictionary dictionary ) : base ( guid, dictionary )
         {
-//          Debug.Log( "constructor child" );
         }
 
         public bool SetWeakLink( bool weak = false )

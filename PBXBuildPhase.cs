@@ -10,34 +10,22 @@ namespace UnityEditor.XCodeEditor
 
         public PBXBuildPhase() :base()
         {
-//          Debug.Log( "base" );
         }
 
         public PBXBuildPhase( string guid, PBXDictionary dictionary ) : base ( guid, dictionary )
         {
-//          Debug.Log( "constructor " + GetType().Name );
         }
 
         public bool AddBuildFile( PBXBuildFile file )
         {
 //          if( ((string)file[ ISA_KEY ]).CompareTo( "PBXBuildFile" ) != 0 )
 //              return false;
-//          Debug.Log( "--> buildphase " + (string)_data[ ISA_KEY ] );
 
             if( !ContainsKey( FILES_KEY ) ){
-//              Debug.Log( "key not present" );
                 this.Add( FILES_KEY, new PBXList() );
             }
 
-//          Debug.Log( "key: " + _data[ FILES_KEY ] );
-//          Debug.Log( "Adding: " + file.guid );
             ((PBXList)_data[ FILES_KEY ]).Add( file.guid );
-//          if( ((PBXList)_data[ FILES_KEY ]).Contains( file.guid ) ) {
-//              Debug.Log( "AGGIUNTO" );
-//          }
-//          else {
-//              Debug.Log( "MANCA" );
-//          }
 
             return true;
         }
@@ -70,7 +58,6 @@ namespace UnityEditor.XCodeEditor
     {
         public PBXFrameworksBuildPhase( string guid, PBXDictionary dictionary ) : base ( guid, dictionary )
         {
-//          Debug.Log( "constructor child" + GetType().Name );
         }
     }
 
@@ -78,7 +65,6 @@ namespace UnityEditor.XCodeEditor
     {
         public PBXResourcesBuildPhase( string guid, PBXDictionary dictionary ) : base ( guid, dictionary )
         {
-//          Debug.Log( "constructor child" + GetType().Name );
         }
     }
 
@@ -86,7 +72,6 @@ namespace UnityEditor.XCodeEditor
     {
         public PBXShellScriptBuildPhase( string guid, PBXDictionary dictionary ) : base ( guid, dictionary )
         {
-//          Debug.Log( "constructor child" + GetType().Name );
         }
     }
 
@@ -94,7 +79,6 @@ namespace UnityEditor.XCodeEditor
     {
         public PBXSourcesBuildPhase( string guid, PBXDictionary dictionary ) : base ( guid, dictionary )
         {
-//          Debug.Log( "constructor child" + GetType().Name );
         }
     }
 
@@ -102,7 +86,6 @@ namespace UnityEditor.XCodeEditor
     {
         public PBXCopyFilesBuildPhase( string guid, PBXDictionary dictionary ) : base ( guid, dictionary )
         {
-//          Debug.Log( "constructor child" + GetType().Name );
         }
     }
 }

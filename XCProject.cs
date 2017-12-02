@@ -298,7 +298,6 @@ namespace UnityEditor.XCodeEditor
         public bool AddHeaderSearchPaths( PBXList paths )
         {
             foreach( KeyValuePair<string, XCBuildConfiguration> buildConfig in buildConfigurations ) {
-//              Debug.Log( "ADDING HEADER PATH: " + paths + " to " + buildConfig.Key );
                 buildConfig.Value.AddHeaderSearchPaths( paths );
             }
 
@@ -346,7 +345,6 @@ namespace UnityEditor.XCodeEditor
 //      {
 //          PBXList result = new PBXList();
 //          foreach( KeyValuePair<string, object> current in _objects ) {
-//              //Debug.Log( "object: " + ((PBXDictionary)current.Value)["isa"] );
 //              if( string.Compare( (string)((PBXDictionary)current.Value)["isa"], type ) == 0 )
 //                  result.Add( current.Value );
 //          }
@@ -383,11 +381,9 @@ namespace UnityEditor.XCodeEditor
 
             if( Path.IsPathRooted( filePath ) ) {
                 absPath = filePath;
-//              Debug.Log( "Is rooted: " + absPath );
             }
             else if( tree.CompareTo( "SDKROOT" ) != 0) {
                 absPath = Path.Combine( Application.dataPath.Replace("Assets", ""), filePath );
-//              Debug.Log( "RElative: " + absPath );
             }
 
             if( !( File.Exists( absPath ) || Directory.Exists( absPath ) ) && tree.CompareTo( "SDKROOT" ) != 0 ) {
@@ -400,12 +396,6 @@ namespace UnityEditor.XCodeEditor
                 filePath = rootURI.MakeRelativeUri( fileURI ).ToString();
             }
 
-//          else {
-//              tree = "<absolute>";
-//              Debug.Log( "3: " + filePath );
-//          }
-//          Debug.Log( "Add file result path: " + filePath );
-
             if( parent == null ) {
                 parent = _rootGroup;
             }
@@ -413,7 +403,6 @@ namespace UnityEditor.XCodeEditor
             // TODO: Aggiungere controllo se file già presente
             PBXFileReference fileReference = GetFile( System.IO.Path.GetFileName( filePath ) );
             if( fileReference != null ) {
-//              Debug.Log( "File già presente." );
                 return null;
             }
 
@@ -435,7 +424,6 @@ namespace UnityEditor.XCodeEditor
                         }
 
                         if ( !string.IsNullOrEmpty( absPath ) && File.Exists(absPath) && tree.CompareTo( "SOURCE_ROOT" ) == 0 ) {
-                            //Debug.LogError(absPath);
                             string libraryPath = Path.Combine( "$(SRCROOT)", Path.GetDirectoryName( filePath ) );
                             this.AddLibrarySearchPaths( new PBXList(libraryPath) );
                         }
@@ -486,10 +474,6 @@ namespace UnityEditor.XCodeEditor
                 }
             }
 
-//          Debug.Log( "Results " + results.Count + " - " );
-//              foreach( KeyValuePair<string, object> obj in results ){
-//              Debug.Log( obj.Key + " - " + obj.Value.GetType().Name );
-//          }
             return results;
         }
 
@@ -540,7 +524,6 @@ namespace UnityEditor.XCodeEditor
                     continue;
                 }
 
-                //Debug.Log( "--> " + file + ", " + newGroup );
                 AddFile( file, newGroup, "SOURCE_ROOT", createBuildFile );
             }
 
@@ -567,7 +550,6 @@ namespace UnityEditor.XCodeEditor
 
         public PBXGroup GetGroup( string name, string path = null, PBXGroup parent = null )
         {
-//          Debug.Log( "GetGroup: " + name + ", " + path + ", " + parent );
             if( string.IsNullOrEmpty( name ) )
                 return null;
 
@@ -575,7 +557,6 @@ namespace UnityEditor.XCodeEditor
                 parent = rootGroup;
 
             foreach( KeyValuePair<string, PBXGroup> current in groups ) {
-//              Debug.Log( "current: " + current.Value.guid + ", " + current.Value.name + ", " + current.Value.path + " - " + parent.HasChild( current.Key ) );
                 if( string.IsNullOrEmpty( current.Value.name ) ) {
                     if( current.Value.path.CompareTo( name ) == 0 && parent.HasChild( current.Key ) ) {
                         return current.Value;

@@ -46,7 +46,6 @@ namespace UnityEditor.XCodeEditor
                 if( recursive && !path.EndsWith( "/**" ) )
                     currentPath += "/**";
 
-//              Debug.Log( "adding: " + currentPath );
                 if( !((PBXDictionary)_data[BUILDSETTINGS_KEY]).ContainsKey( key ) ) {
                     ((PBXDictionary)_data[BUILDSETTINGS_KEY]).Add( key, new PBXList() );
                 }
@@ -84,7 +83,6 @@ namespace UnityEditor.XCodeEditor
 
         public bool AddOtherCFlags( string flag )
         {
-            //Debug.Log( "INIZIO 1" );
             PBXList flags = new PBXList();
             flags.Add( flag );
             return AddOtherCFlags( flags );
@@ -92,8 +90,6 @@ namespace UnityEditor.XCodeEditor
 
         public bool AddOtherCFlags( PBXList flags )
         {
-            //Debug.Log( "INIZIO 2" );
-
             bool modified = false;
 
             if( !ContainsKey( BUILDSETTINGS_KEY ) )
@@ -120,7 +116,6 @@ namespace UnityEditor.XCodeEditor
 
         public bool AddOtherLDFlags( string flag )
         {
-            //Debug.Log( "INIZIO A" );
             PBXList flags = new PBXList();
             flags.Add( flag );
             return AddOtherLDFlags( flags );
@@ -128,8 +123,6 @@ namespace UnityEditor.XCodeEditor
 
         public bool AddOtherLDFlags( PBXList flags )
         {
-            //Debug.Log( "INIZIO B" );
-
             bool modified = false;
 
             if( !ContainsKey( BUILDSETTINGS_KEY ) )

@@ -49,8 +49,6 @@ namespace UnityEditor.XCodeEditor
 
         public PBXObject( string guid, PBXDictionary dictionary ) : this( guid )
         {
-//          Debug.Log( "constructor parent " + this.GetType().Name );
-
             if( !dictionary.ContainsKey( ISA_KEY ) || ((string)dictionary[ ISA_KEY ]).CompareTo( this.GetType().Name ) != 0 )
                 Debug.LogError( "PBXDictionary is not a valid ISA object" );
 

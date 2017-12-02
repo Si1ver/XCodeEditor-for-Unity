@@ -571,9 +571,6 @@ s += Char.ConvertFromUtf32((int)codePoint);
 
     protected static bool serializeValue(object value, StringBuilder builder)
     {
-        // Type t = value.GetType();
-        // Debug.Log("type: " + t.ToString() + " isArray: " + t.IsArray);
-
         if (value == null)
         {
             builder.Append("null");
