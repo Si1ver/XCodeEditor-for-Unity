@@ -1,11 +1,8 @@
-using UnityEngine;
-using UnityEditor;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-
 namespace UnityEditor.XCodeEditor
 {
+    using System.IO;
+    using UnityEngine;
+
     public class XCodeEditorMenu
     {
         //[MenuItem ("Build Tools/XCode Editor/DebugTest %t")]

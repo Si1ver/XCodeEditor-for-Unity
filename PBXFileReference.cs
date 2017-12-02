@@ -1,9 +1,8 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace UnityEditor.XCodeEditor
 {
+    using System.Collections.Generic;
+    using UnityEngine;
+
     public class PBXFileReference : PBXObject
     {
         protected const string PATH_KEY = "path";

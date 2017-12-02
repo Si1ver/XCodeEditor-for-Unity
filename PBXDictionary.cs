@@ -1,9 +1,7 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace UnityEditor.XCodeEditor
 {
+    using System.Collections.Generic;
+
     public class PBXDictionary : Dictionary<string, object>
     {
         public void Append( PBXDictionary dictionary )

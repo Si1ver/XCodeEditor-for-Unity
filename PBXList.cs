@@ -1,9 +1,7 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace UnityEditor.XCodeEditor
 {
+    using System.Collections;
+
     public class PBXList : ArrayList
     {
         public PBXList()

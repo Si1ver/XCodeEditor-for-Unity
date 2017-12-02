@@ -1,9 +1,8 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace UnityEditor.XCodeEditor
 {
+    using System.Collections.Generic;
+    using UnityEngine;
+
     public class PBXObject
     {
         protected const string ISA_KEY = "isa";

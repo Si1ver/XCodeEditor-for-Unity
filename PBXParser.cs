@@ -1,12 +1,12 @@
-using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-
 namespace UnityEditor.XCodeEditor
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using UnityEngine;
+
     public class PBXParser
     {
         public const string PBX_HEADER_TOKEN = "// !$*UTF8*$!\n";

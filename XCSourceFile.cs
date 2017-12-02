@@ -1,9 +1,8 @@
-using UnityEngine;
-using System.Collections;
-
 namespace UnityEditor.XCodeEditor
 {
-    public class XCSourceFile : System.IDisposable
+    using System;
+
+    public class XCSourceFile : IDisposable
     {
         public void Dispose()
         {

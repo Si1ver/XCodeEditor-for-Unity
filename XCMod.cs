@@ -1,10 +1,9 @@
-using UnityEngine;
-using System.Collections;
-using System.IO;
-using Json = MiniJSON;
-
 namespace UnityEditor.XCodeEditor
 {
+    using System.Collections;
+    using System.IO;
+    using UnityEngine;
+
     public class XCMod
     {
 //      private string group;
@@ -90,8 +89,8 @@ namespace UnityEditor.XCodeEditor
                 Debug.LogWarning( "File does not exist." );
             }
 
-            name = System.IO.Path.GetFileNameWithoutExtension( filename );
-            path = System.IO.Path.GetDirectoryName( filename );
+            name = Path.GetFileNameWithoutExtension( filename );
+            path = Path.GetDirectoryName( filename );
 
             string contents = projectFileInfo.OpenText().ReadToEnd();
             _datastore = (Hashtable)XMiniJSON.jsonDecode( contents );
