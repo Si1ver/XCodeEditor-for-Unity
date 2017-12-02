@@ -905,9 +905,6 @@ namespace UnityEditor.XCodeEditor
             StreamWriter saveFile = File.CreateText( System.IO.Path.Combine( this.filePath, "project.pbxproj" ) );
             saveFile.Write( parser.Encode( result, false ) );
             saveFile.Close();
-
-//          Xcode4Controller.Connect();
-//          Xcode4Controller.OpenProject(filePath);
         }
 
         /**
