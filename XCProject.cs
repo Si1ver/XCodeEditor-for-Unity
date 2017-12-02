@@ -19,8 +19,6 @@ namespace UnityEditor.XCodeEditor
 
         public string projectRootPath { get; private set; }
 
-        private FileInfo projectFileInfo;
-
         public string filePath { get; private set; }
 
         private string sourcePathRoot;
@@ -53,10 +51,13 @@ namespace UnityEditor.XCodeEditor
 
             Debug.LogFormat("Opening project \"{0}\".", this.filePath);
 
-            projectFileInfo = new FileInfo( Path.Combine( this.filePath, "project.pbxproj" ) );
-            StreamReader sr = projectFileInfo.OpenText();
-            string contents = sr.ReadToEnd();
-            sr.Close();
+            FileInfo projectFileInfo = new FileInfo(Path.Combine(this.filePath, "project.pbxproj"));
+
+            string contents;
+            using (StreamReader streamReader = projectFileInfo.OpenText())
+            {
+                contents = streamReader.ReadToEnd();
+            }
 
             PBXParser parser = new PBXParser();
             _datastore = parser.Decode( contents );
