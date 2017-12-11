@@ -6,6 +6,7 @@ namespace UnityEditor.XCodeEditor
     using System.IO;
     using System.Text.RegularExpressions;
     using UnityEngine;
+    using XcodeProjectEditor;
 
     public partial class XCProject : System.IDisposable
     {
@@ -717,26 +718,26 @@ namespace UnityEditor.XCodeEditor
 //          }
 //      }
 
-        public void ApplyMod( string pbxmod )
+        public void ApplyMod(string xcodeModFile)
         {
-            XCMod mod = new XCMod( pbxmod );
-            ApplyMod( mod );
+            XcodeProjectMod modificator = XcodeModLoader.LoadFromFile(xcodeModFile);
+            ApplyMod(modificator);
         }
 
-        public void ApplyMod( XCMod mod )
+        public void ApplyMod( XcodeProjectMod mod )
         {
-            PBXGroup modGroup = this.GetGroup( mod.group );
+            PBXGroup modGroup = this.GetGroup( mod.Group );
 
             Debug.Log( "Adding libraries..." );
             PBXGroup librariesGroup = this.GetGroup( "Libraries" );
-            foreach( XCModFile libRef in mod.libs ) {
-                string completeLibPath = System.IO.Path.Combine( "usr/lib", libRef.filePath );
-                this.AddFile( completeLibPath, modGroup, "SDKROOT", true, libRef.isWeak );
+            foreach( LibraryMod libRef in mod.Libraries ) {
+                string completeLibPath = System.IO.Path.Combine( "usr/lib", libRef.FilePath );
+                this.AddFile( completeLibPath, modGroup, "SDKROOT", true, libRef.IsWeak );
             }
 
             Debug.Log( "Adding frameworks..." );
             PBXGroup frameworkGroup = this.GetGroup( "Frameworks" );
-            foreach( string framework in mod.frameworks ) {
+            foreach( string framework in mod.Frameworks ) {
                 string[] filename = framework.Split( ':' );
                 bool isWeak = ( filename.Length > 1 ) ? true : false;
                 string completePath = System.IO.Path.Combine( "System/Library/Frameworks", filename[0] );
@@ -744,8 +745,8 @@ namespace UnityEditor.XCodeEditor
             }
 
             Debug.Log( "Adding files..." );
-            foreach( string filePath in mod.files ) {
-                string absoluteFilePath = System.IO.Path.Combine( mod.path, filePath );
+            foreach( string filePath in mod.Files ) {
+                string absoluteFilePath = System.IO.Path.Combine( mod.FilesPath, filePath );
 
                 if( filePath.EndsWith(".framework") )
                     this.AddFile( absoluteFilePath, frameworkGroup, "GROUP", true, false);
@@ -754,45 +755,42 @@ namespace UnityEditor.XCodeEditor
             }
 
             Debug.Log( "Adding folders..." );
-            foreach( string folderPath in mod.folders ) {
-                string absoluteFolderPath = System.IO.Path.Combine( mod.path, folderPath );
-                this.AddFolder( absoluteFolderPath, modGroup, (string[])mod.excludes.ToArray( typeof(string) ) );
+            foreach( string folderPath in mod.Folders ) {
+                string absoluteFolderPath = System.IO.Path.Combine( mod.FilesPath, folderPath );
+                this.AddFolder( absoluteFolderPath, modGroup, mod.Excludes );
             }
 
             Debug.Log( "Adding headerpaths..." );
-            foreach( string headerpath in mod.headerpaths ) {
-                string absoluteHeaderPath = System.IO.Path.Combine( mod.path, headerpath );
+            foreach( string headerpath in mod.Headers ) {
+                string absoluteHeaderPath = System.IO.Path.Combine( mod.FilesPath, headerpath );
                 this.AddHeaderSearchPaths( absoluteHeaderPath );
             }
 
             Debug.Log( "Configure build settings..." );
-            Hashtable buildSettings = mod.buildSettings;
-            if (mod.buildSettings != null)
+            var buildSettings = mod.BuildSettings;
+
+            if (buildSettings.OtherLinkerFlags.Length != 0)
             {
-                if( buildSettings.ContainsKey("OTHER_LDFLAGS") )
+                Debug.Log( "    Adding other linker flags..." );
+                foreach (string linker in buildSettings.OtherLinkerFlags)
                 {
-                    Debug.Log( "    Adding other linker flags..." );
-                    ArrayList otherLinkerFlags = (ArrayList) buildSettings["OTHER_LDFLAGS"];
-                    foreach( string linker in otherLinkerFlags )
-                    {
-                        string _linker = linker;
-                        if( !_linker.StartsWith("-") )
-                            _linker = "-" + _linker;
-                        this.AddOtherLDFlags( _linker );
-                    }
+                    string _linker = linker;
+                    if( !_linker.StartsWith("-") )
+                        _linker = "-" + _linker;
+                    this.AddOtherLDFlags( _linker );
                 }
+            }
 
-                if( buildSettings.ContainsKey("GCC_ENABLE_CPP_EXCEPTIONS") )
-                {
-                    Debug.Log( "    GCC_ENABLE_CPP_EXCEPTIONS = " + buildSettings["GCC_ENABLE_CPP_EXCEPTIONS"] );
-                    this.GccEnableCppExceptions( (string) buildSettings["GCC_ENABLE_CPP_EXCEPTIONS"] );
-                }
+            if (!string.IsNullOrEmpty(buildSettings.GccEnableCppExceptions))
+            {
+                Debug.Log("    GCC_ENABLE_CPP_EXCEPTIONS = " + buildSettings.GccEnableCppExceptions);
+                this.GccEnableCppExceptions(buildSettings.GccEnableCppExceptions);
+            }
 
-                if( buildSettings.ContainsKey("GCC_ENABLE_OBJC_EXCEPTIONS") )
-                {
-                    Debug.Log( "    GCC_ENABLE_OBJC_EXCEPTIONS = " + buildSettings["GCC_ENABLE_OBJC_EXCEPTIONS"] );
-                    this.GccEnableObjCExceptions( (string) buildSettings["GCC_ENABLE_OBJC_EXCEPTIONS"] );
-                }
+            if (!string.IsNullOrEmpty(buildSettings.GccEnableObjcExceptions))
+            {
+                Debug.Log("    GCC_ENABLE_OBJC_EXCEPTIONS = " + buildSettings.GccEnableObjcExceptions);
+                this.GccEnableObjCExceptions(buildSettings.GccEnableObjcExceptions);
             }
 
             this.Consolidate();
