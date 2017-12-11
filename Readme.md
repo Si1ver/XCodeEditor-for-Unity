@@ -1,20 +1,18 @@
 # XCode Editor for Unity
 
-## OVERVIEW
+## Overview
 
 The purpose of this project is to allow editing an XCode 4 project.
 
 This project is based upon the python project **Mod PBXProj** by Calvin Rien (http://the.darktable.com/). Due to the recent addiction of PostProcessBuild attribute to Unity, I found much useful having a C# version of the library.
 
-
-## INSTALLATION
+## Installation
 
 Clone this repo somewhere under Assets/Editor in your project. If your project is not yet checked into git, then you'll need to do the appropriate setup and add this as a submodule (google: git-submodule).
 
 If you already use git for your project, then just add this as a submodule.
 
-
-## USAGE
+## Usage
 
 You can use the XCProject class in any part of your editor and postprocess code. Taking advantage of the great powers of the new PostProcessBuild attribute, I suggest to use a small cs static class to run through all the projmods files in your asses folder and simply apply them to the newly created xcode project.
 
@@ -69,15 +67,19 @@ The projmods file is a simple text file containing a JSON object. It will be use
 
 Note: all paths are relative to projmods location
 
+## Original work
 
-## LICENSE
+This project is based on "XCode Editor for Unity" by Daniele Cariola.
+You can find original project at https://github.com/dcariola/XCodeEditor-for-Unity
 
-This code is distributed under the terms and conditions of the MIT license.
+## License
 
-Copyright (c) 2012 Daniele Cariola
+The project is licensed under MIT license. See License.md for full license text.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+## Contribution
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+If you want to fix a bug, implement a new feature or improve documentation or tests,
+you are welcome to submit a pull request.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Before implementing a new feature please discuss it with author to make sure that he
+shares your point of view and your pull request will be merged.
