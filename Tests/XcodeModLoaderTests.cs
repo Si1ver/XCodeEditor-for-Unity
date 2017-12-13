@@ -75,6 +75,45 @@ namespace XcodeProjectEditor.Tests
 }
 ";
 
+        private const string XcodeModWithEmptyFiles = @"{
+  ""files"": []
+}
+";
+
+        private const string XcodeModWithTwoFiles = @"{
+  ""files"": [
+    ""iOS/GameCenter/GameCenterHelper.m"",
+    ""iOS/GameCenter/GameCenterHelper.h""
+  ]
+}
+";
+
+        private const string XcodeModWithEmptyFolders = @"{
+  ""folders"": []
+}
+";
+
+        private const string XcodeModWithOneFolder = @"{
+  ""folders"": [
+    ""iOS/GoogleAnalytics/""
+  ]
+}
+";
+
+        private const string XcodeModWithEmptyExcludes = @"{
+  ""excludes"": []
+}
+";
+
+        private const string XcodeModWithThreeExcludes = @"{
+  ""excludes"": [
+    ""^.*.meta$"",
+    ""^.*.mdown$"",
+    ""^.*.pdf$""
+  ]
+}
+";
+
         [Test]
         public static void TestEmptyMod()
         {
@@ -286,7 +325,6 @@ namespace XcodeProjectEditor.Tests
             Assert.IsEmpty(modificator.BuildSettings.GccEnableObjcExceptions);
         }
 
-
         [Test]
         public static void TestModWithEmptyHeaders()
         {
@@ -325,6 +363,144 @@ namespace XcodeProjectEditor.Tests
             Assert.That(modificator.Files, Has.Length.EqualTo(0));
             Assert.That(modificator.Folders, Has.Length.EqualTo(0));
             Assert.That(modificator.Excludes, Has.Length.EqualTo(0));
+            Assert.NotNull(modificator.BuildSettings);
+
+            Assert.That(modificator.BuildSettings.OtherLinkerFlags, Has.Length.EqualTo(0));
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableCppExceptions);
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableObjcExceptions);
+        }
+
+        [Test]
+        public static void TestModWithEmptyFiles()
+        {
+            XcodeProjectMod modificator =
+                XcodeModLoader.LoadFromJson(FakeFilesPath, XcodeModWithEmptyFiles);
+
+            Assert.AreEqual(modificator.FilesPath, FakeFilesPath);
+            Assert.IsEmpty(modificator.Group);
+            Assert.That(modificator.Libraries, Has.Length.EqualTo(0));
+            Assert.That(modificator.Frameworks, Has.Length.EqualTo(0));
+            Assert.That(modificator.Headers, Has.Length.EqualTo(0));
+            Assert.That(modificator.Files, Has.Length.EqualTo(0));
+            Assert.That(modificator.Folders, Has.Length.EqualTo(0));
+            Assert.That(modificator.Excludes, Has.Length.EqualTo(0));
+            Assert.NotNull(modificator.BuildSettings);
+
+            Assert.That(modificator.BuildSettings.OtherLinkerFlags, Has.Length.EqualTo(0));
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableCppExceptions);
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableObjcExceptions);
+        }
+
+        [Test]
+        public static void TestModWithTwoFiles()
+        {
+            XcodeProjectMod modificator =
+                XcodeModLoader.LoadFromJson(FakeFilesPath, XcodeModWithTwoFiles);
+
+            Assert.AreEqual(modificator.FilesPath, FakeFilesPath);
+            Assert.IsEmpty(modificator.Group);
+            Assert.That(modificator.Libraries, Has.Length.EqualTo(0));
+            Assert.That(modificator.Frameworks, Has.Length.EqualTo(0));
+            Assert.That(modificator.Headers, Has.Length.EqualTo(0));
+            Assert.That(modificator.Files, Has.Length.EqualTo(2));
+
+            Assert.AreEqual(modificator.Files[0], @"iOS/GameCenter/GameCenterHelper.m");
+            Assert.AreEqual(modificator.Files[1], @"iOS/GameCenter/GameCenterHelper.h");
+
+            Assert.That(modificator.Folders, Has.Length.EqualTo(0));
+            Assert.That(modificator.Excludes, Has.Length.EqualTo(0));
+            Assert.NotNull(modificator.BuildSettings);
+
+            Assert.That(modificator.BuildSettings.OtherLinkerFlags, Has.Length.EqualTo(0));
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableCppExceptions);
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableObjcExceptions);
+        }
+
+        [Test]
+        public static void TestModWithEmptyFolders()
+        {
+            XcodeProjectMod modificator =
+                XcodeModLoader.LoadFromJson(FakeFilesPath, XcodeModWithEmptyFolders);
+
+            Assert.AreEqual(modificator.FilesPath, FakeFilesPath);
+            Assert.IsEmpty(modificator.Group);
+            Assert.That(modificator.Libraries, Has.Length.EqualTo(0));
+            Assert.That(modificator.Frameworks, Has.Length.EqualTo(0));
+            Assert.That(modificator.Headers, Has.Length.EqualTo(0));
+            Assert.That(modificator.Files, Has.Length.EqualTo(0));
+            Assert.That(modificator.Folders, Has.Length.EqualTo(0));
+            Assert.That(modificator.Excludes, Has.Length.EqualTo(0));
+            Assert.NotNull(modificator.BuildSettings);
+
+            Assert.That(modificator.BuildSettings.OtherLinkerFlags, Has.Length.EqualTo(0));
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableCppExceptions);
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableObjcExceptions);
+        }
+
+        [Test]
+        public static void TestModWithOneFolder()
+        {
+            XcodeProjectMod modificator =
+                XcodeModLoader.LoadFromJson(FakeFilesPath, XcodeModWithOneFolder);
+
+            Assert.AreEqual(modificator.FilesPath, FakeFilesPath);
+            Assert.IsEmpty(modificator.Group);
+            Assert.That(modificator.Libraries, Has.Length.EqualTo(0));
+            Assert.That(modificator.Frameworks, Has.Length.EqualTo(0));
+            Assert.That(modificator.Headers, Has.Length.EqualTo(0));
+            Assert.That(modificator.Files, Has.Length.EqualTo(0));
+            Assert.That(modificator.Folders, Has.Length.EqualTo(1));
+
+            Assert.AreEqual(modificator.Folders[0], @"iOS/GoogleAnalytics/");
+
+            Assert.That(modificator.Excludes, Has.Length.EqualTo(0));
+            Assert.NotNull(modificator.BuildSettings);
+
+            Assert.That(modificator.BuildSettings.OtherLinkerFlags, Has.Length.EqualTo(0));
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableCppExceptions);
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableObjcExceptions);
+        }
+
+        [Test]
+        public static void TestModWithEmptyExcludes()
+        {
+            XcodeProjectMod modificator =
+                XcodeModLoader.LoadFromJson(FakeFilesPath, XcodeModWithEmptyExcludes);
+
+            Assert.AreEqual(modificator.FilesPath, FakeFilesPath);
+            Assert.IsEmpty(modificator.Group);
+            Assert.That(modificator.Libraries, Has.Length.EqualTo(0));
+            Assert.That(modificator.Frameworks, Has.Length.EqualTo(0));
+            Assert.That(modificator.Headers, Has.Length.EqualTo(0));
+            Assert.That(modificator.Files, Has.Length.EqualTo(0));
+            Assert.That(modificator.Folders, Has.Length.EqualTo(0));
+            Assert.That(modificator.Excludes, Has.Length.EqualTo(0));
+            Assert.NotNull(modificator.BuildSettings);
+
+            Assert.That(modificator.BuildSettings.OtherLinkerFlags, Has.Length.EqualTo(0));
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableCppExceptions);
+            Assert.IsEmpty(modificator.BuildSettings.GccEnableObjcExceptions);
+        }
+
+        [Test]
+        public static void TestModWithThreeExcludes()
+        {
+            XcodeProjectMod modificator =
+                XcodeModLoader.LoadFromJson(FakeFilesPath, XcodeModWithThreeExcludes);
+
+            Assert.AreEqual(modificator.FilesPath, FakeFilesPath);
+            Assert.IsEmpty(modificator.Group);
+            Assert.That(modificator.Libraries, Has.Length.EqualTo(0));
+            Assert.That(modificator.Frameworks, Has.Length.EqualTo(0));
+            Assert.That(modificator.Headers, Has.Length.EqualTo(0));
+            Assert.That(modificator.Files, Has.Length.EqualTo(0));
+            Assert.That(modificator.Folders, Has.Length.EqualTo(0));
+            Assert.That(modificator.Excludes, Has.Length.EqualTo(3));
+
+            Assert.AreEqual(modificator.Excludes[0], @"^.*.meta$");
+            Assert.AreEqual(modificator.Excludes[1], @"^.*.mdown$");
+            Assert.AreEqual(modificator.Excludes[2], @"^.*.pdf$");
+
             Assert.NotNull(modificator.BuildSettings);
 
             Assert.That(modificator.BuildSettings.OtherLinkerFlags, Has.Length.EqualTo(0));
