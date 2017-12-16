@@ -50,7 +50,7 @@ namespace XcodeProjectEditor
 
             return new XcodeProjectMod()
             {
-                FilesPath = filesPath,
+                FilesPath = filesPath.Replace('\\', '/'),
                 Group = LoadElementOrDefault(data, GroupFieldName, string.Empty),
                 Libraries = LoadLibraries(data, LibrariesFieldName),
                 Frameworks = LoadArrayOrEmpty<string>(data, FrameworksFieldName),
