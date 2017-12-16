@@ -1,0 +1,15 @@
+.hg/*
+.vs/*
+.vscode/*
+*/obj/*
+*/bin/*
+*.7z
+Build/*
+Library/*
+packages/*
+Temp/*
+*.csproj
+*.pidb
+*.sln
+*.suo
+*.userprefs
